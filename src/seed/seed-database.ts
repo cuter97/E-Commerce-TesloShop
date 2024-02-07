@@ -1,5 +1,6 @@
 import { initialData } from './seed';
 import prisma from '../lib/prisma';
+import { Category } from '@prisma/client';
 
 async function main() {
 
@@ -18,7 +19,7 @@ async function main() {
 
     const categoriesDB = await prisma.category.findMany();
 
-    const categoriesMap = categoriesDB.reduce((map, category) => {
+    const categoriesMap = categoriesDB.reduce((map: any, category: Category) => {
         map[category.name.toLowerCase()] = category.id;
         return map;
     }, {} as Record<string, string>); //<string=shirt, string=categoryID>
