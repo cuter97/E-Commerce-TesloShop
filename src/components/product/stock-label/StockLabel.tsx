@@ -1,7 +1,6 @@
 'use client'
 
 import { getStockBySlug } from "@/actions";
-import { titleFont } from "@/config/fonts"
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -27,11 +26,11 @@ export const StockLabel = ({ slug }: Props) => {
         <>
             {
                 !isLoading ? (
-                    <p className={` ${titleFont.className} antialiased font-normal text-lg`}>
+                    <p className={`antialiased font-normal text-lg`}>
                         Stock: {stock}
                     </p>
                 ) : (
-                    <p className={` ${titleFont.className} antialiased font-normal text-lg bg-gray-200 animate-pulse`}>
+                    <p className={`antialiased font-normal text-lg bg-gray-200 animate-pulse`}>
                         &nbsp;
                     </p>
                 )

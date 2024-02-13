@@ -1,8 +1,9 @@
-import { Metadata, ResolvingMetadata } from "next";
+// import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/actions";
-import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector, StockLabel } from "@/components";
+import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from "@/components";
 import { titleFont } from "@/config/fonts";
+import { AddToCart } from "./ui/AddToCart";
 
 interface Props {
     params: {
@@ -10,26 +11,22 @@ interface Props {
     };
 }
 
-export async function generateMetadata(
-    { params }: Props,
-    parent: ResolvingMetadata
-): Promise<Metadata> {
-    // read route params
-    const slug = params.slug
+// export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 
-    // fetch data
-    const product = await getProductBySlug(slug)
+//     const slug = params.slug
 
-    return {
-        title: product.title,
-        description: product?.description,
-        openGraph: {
-            title: product.title,
-            description: product?.description,
-            images: [`/products/${product?.images[1]}`],
-        },
-    }
-}
+//     const product = await getProductBySlug(slug)
+
+//     return {
+//         title: product.title,
+//         description: product?.description,
+//         openGraph: {
+//             title: product.title,
+//             description: product?.description,
+//             images: [`/products/${product?.images[1]}`],
+//         },
+//     }
+// }
 
 export default async function ProductSlugPage({ params }: Props) {
 
@@ -63,27 +60,13 @@ export default async function ProductSlugPage({ params }: Props) {
             {/* Detalles */}
             <div className="col-span-1 px-5">
 
-                <h1 className={` ${titleFont.className} antialiased font-bold text-xl`}>
+                <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
                     {product.title}
                 </h1>
                 <StockLabel slug={product.slug} />
                 <p className="text-lg mb-5 font-medium">${product.price}</p>
 
-                {/* Selector de Tallas */}
-                <SizeSelector
-                    selectedSize={product.sizes[1]}
-                    availableSizes={product.sizes}
-                />
-
-                {/* Selector de Cantidad */}
-                <QuantitySelector
-                    quantity={2}
-                />
-
-                {/* Button */}
-                <button className="btn-primary my-5">
-                    Agregar al carrito
-                </button>
+               <AddToCart product={product} />
 
                 {/* Descripción */}
                 <h3 className="font-bold text-sm">Descripción</h3>
